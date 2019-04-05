@@ -70,7 +70,8 @@ async function renderUpdate(jsonData) {
 
     switch (jsonData.grid[i][0]) {
       case 0:
-        gridCellsArray[i].style.backgroundColor = "rgba(0,0,0,.2)";
+        gridCellsArray[i].style.backgroundColor = "rgba(50,30,255,0.5)";
+        gridCellsArray[i].style.boxShadow = "-10px -10px 20px rgba(0,0,0,.25)";
         gridCellsArray[i].innerHTML = "Road";
         break;
 
@@ -102,7 +103,7 @@ async function renderUpdate(jsonData) {
         break;
       default:
         gridCellsArray[i].style.backgroundColor = "rgba(0, 0, 0, 0.5)";
-        gridCellsArray[i].innerHTML = i + "_no_tag";
+        gridCellsArray[i].innerHTML = i;
         break;
     }
     // slider
@@ -114,8 +115,7 @@ async function renderUpdate(jsonData) {
       case 255:
         if (jsonData.grid[i][0] != -1) {
           gridCellsArray[i].style.backgroundColor = "rgba(255, 255, 0, 0.5)";
-          gridCellsArray[i].innerHTML =
-            "type: " + jsonData.grid[i] + " val: " + i;
+          gridCellsArray[i].innerHTML = jsonData.grid[i] + " " + i;
         }
         break;
     }

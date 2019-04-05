@@ -47,7 +47,8 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 0.7vw;
+  overflow-x: hidden;
+  font-size: 2vw;
   z-index: 100 !important;
   box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
 }
