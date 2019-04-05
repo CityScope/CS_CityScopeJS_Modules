@@ -1,6 +1,6 @@
-# CityScopeJS Table Simulation Modules
+# CityScopeJS Table Modules
 
-This repo contains a few boilerplate examples for CityScopeJS tables in web/browser environment. These modules should run 'out of the box' with any modern web browser. Modules are designed to work best with [CityScopeJS](https://github.com/CityScope/CS_cityscopeJS) but should accept any cityIO data if properly structured.
+This repo contains a few boilerplate examples for CityScopeJS table-tops in web/browser environment. Modules are designed to work best with [CityScopeJS](https://github.com/CityScope/CS_cityscopeJS) but should accept any cityIO data if properly structured.
 
 Modules are built to represent:
 
