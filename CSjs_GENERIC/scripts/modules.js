@@ -103,7 +103,7 @@ async function renderUpdate(jsonData) {
         break;
       default:
         gridCellsArray[i].style.backgroundColor = "rgba(0, 0, 0, 0.5)";
-        gridCellsArray[i].innerHTML = i;
+        // gridCellsArray[i].innerHTML = i;
         break;
     }
     // slider
