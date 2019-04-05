@@ -1,0 +1,25 @@
+html {
+  height: 100%;
+}
+body {
+  height: 100%;
+  margin: 0;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  overflow: hidden;
+  background: black;
+}
+
+.mapDIV {
+  position: fixed;
+  top: 0%;
+  width: 1200px;
+  height: 1200px;
+  opacity: 0.6;
+}
+
+.threeDiv {
+  width: 1200px;
+  height: 1200px;
+  position: fixed;
+}

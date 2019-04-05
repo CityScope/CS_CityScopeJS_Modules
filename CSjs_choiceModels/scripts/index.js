@@ -31,77 +31,68 @@ https://github.com/RELNO]
 */
 import "babel-polyfill";
 //Import Storage class
-import "./scripts/Storage";
-var mapboxgl = require("mapbox-gl/dist/mapbox-gl.js");
-import { Maptastic } from "./scripts/maptastic";
-import { getCityIO, makeGrid, update } from "./scripts/modules";
+import "./Storage";
+import { Maptastic } from "./maptastic";
+import { gridSetup } from "./ThreeJS/gridSetup";
+import { gridUpdate } from "./ThreeJS/gridUpdate";
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * get cityIO method [uses polyfill]
+ * @param cityIOtableURL cityIO API endpoint URL
+ */
+export async function getCityIO() {
+  let cityIOtableURL = Storage.cityIOurl;
+  // console.log("trying to fetch " + cityIOtableURL);
+  return fetch(cityIOtableURL)
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(cityIOdata) {
+      // console.log("got cityIO table at " + cityIOdata.meta.timestamp);
+      return cityIOdata;
+    });
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * controls the cityIO streeam
+ */
+export async function update() {
+  let cityIOtableURL = Storage.cityIOurl;
+  Storage.cityIOdata = await getCityIO(cityIOtableURL);
+  //update the grid props
+  gridUpdate();
+}
 
 async function init() {
   //GET CITYIO
   var tableName = window.location.search.substring(1);
   if (tableName == "") {
-    console.log("using default cityIO endpoint ");
+    console.log("using default cityIO endpoint @ mocho");
     tableName = "mocho";
   }
   let cityIOtableURL =
     "https://cityio.media.mit.edu/api/table/" + tableName.toString();
-  //store this url
-  Storage.cityIOurl = cityIOtableURL;
-  var interval = 1000;
 
+  Storage.cityIOurl = cityIOtableURL;
   //call server once at start, just to init the grid
   const cityIOjson = await getCityIO(cityIOtableURL);
+  //save to storage
+  Storage.cityIOdata = cityIOjson;
+  console.log(Storage.cityIOdata);
 
-  console.log(
-    "this table is set to the follwing mapping",
-    Object.values(cityIOjson.header.mapping)[0]
-  );
+  //init the threejs module
+  gridSetup();
 
-  // get grid size
-  var gridSizeCols = cityIOjson.header.spatial.ncols;
-  var gridSizeRows = cityIOjson.header.spatial.nrows;
-
-  console.log("table size is", gridSizeCols, "x", gridSizeRows);
-  // make the table div
-  let tableDIV = document.createElement("div");
-  tableDIV.id = "tableDIV";
-  tableDIV.className = "tableDIV";
-  document.body.appendChild(tableDIV);
-
-  // make the table div
-  let mapDIV = document.createElement("div");
-  mapDIV.id = "mapDIV";
-  mapDIV.className = "mapDIV";
-  tableDIV.appendChild(mapDIV);
-
-  //make the grid parent
-  let gridDIV = document.createElement("div");
-  gridDIV.className = "gridDIV";
-  tableDIV.appendChild(gridDIV);
-
-  //make the baseline grid before update kick in
-  makeGrid(gridDIV, gridSizeCols, gridSizeRows);
-
+  //ONLY WAY TO M/S THREE.JS
+  let THREEcanvas = document.querySelector("#THREEcanvas");
   //maptastic the div
-  Maptastic("tableDIV");
+  Maptastic(THREEcanvas);
 
+  var interval = 500;
   //run the update
   window.setInterval(update, interval);
-
-  //base map
-  mapboxgl.accessToken =
-    "pk.eyJ1IjoicmVsbm94IiwiYSI6ImNpa2VhdzN2bzAwM2t0b2x5bmZ0czF6MzgifQ.KtqxBH_3rkMaHCn_Pm3Pag";
-  var map = new mapboxgl.Map({
-    container: "mapDIV",
-    style: "mapbox://styles/relnox/cjlu6w5sc1dy12rmn4kl2zljn",
-    center: [-71.085202, 42.36479],
-    bearing: 30,
-    zoom: 17.5
-  });
-
-  var infoDiv = document.createElement("div");
-  document.body.appendChild(infoDiv);
-  Storage.map = map;
 }
 
 //start applet
