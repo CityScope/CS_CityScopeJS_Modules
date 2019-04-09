@@ -66,7 +66,7 @@ async function renderUpdate(jsonData) {
   let gridCellsArray = Storage.gridCellsArray;
 
   for (let i = 0; i < jsonData.grid.length; i++) {
-    // gridCellsArray[i].innerHTML = i;
+    gridCellsArray[i].innerHTML = "";
 
     switch (jsonData.grid[i][0]) {
       case 0:
@@ -116,6 +116,9 @@ async function renderUpdate(jsonData) {
         if (jsonData.grid[i][0] != -1) {
           gridCellsArray[i].style.backgroundColor = "rgba(255, 255, 0, 0.5)";
           gridCellsArray[i].innerHTML = jsonData.grid[i] + " " + i;
+        } else {
+          gridCellsArray[i].style.backgroundColor = "rgba(0, 0, 0, 0.5)";
+          gridCellsArray[i].innerHTML = "";
         }
         break;
     }
