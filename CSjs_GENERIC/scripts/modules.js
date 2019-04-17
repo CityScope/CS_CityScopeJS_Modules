@@ -70,7 +70,7 @@ async function renderUpdate(jsonData) {
 
     switch (jsonData.grid[i][0]) {
       case 0:
-        gridCellsArray[i].style.backgroundColor = "rgba(50,30,255,0.5)";
+        gridCellsArray[i].style.backgroundColor = "rgba(255,255,255,0.5)";
         gridCellsArray[i].style.boxShadow = "-10px -10px 20px rgba(0,0,0,.25)";
         gridCellsArray[i].innerHTML = "Road";
         break;
@@ -103,24 +103,23 @@ async function renderUpdate(jsonData) {
         break;
       default:
         gridCellsArray[i].style.backgroundColor = "rgba(0, 0, 0, 0.5)";
-        // gridCellsArray[i].innerHTML = i;
         break;
     }
     // slider
-    switch (i) {
-      case 191:
-      case 207:
-      case 223:
-      case 239:
-      case 255:
-        if (jsonData.grid[i][0] != -1) {
-          gridCellsArray[i].style.backgroundColor = "rgba(255, 255, 0, 0.5)";
-          gridCellsArray[i].innerHTML = jsonData.grid[i] + " " + i;
-        } else {
-          gridCellsArray[i].style.backgroundColor = "rgba(0, 0, 0, 0.5)";
-          gridCellsArray[i].innerHTML = "";
-        }
-        break;
-    }
+    // switch (i) {
+    //   case 191:
+    //   case 207:
+    //   case 223:
+    //   case 239:
+    //   case 255:
+    //     if (jsonData.grid[i][0] != -1) {
+    //       gridCellsArray[i].style.backgroundColor = "rgba(255, 255, 0, 0.5)";
+    //       gridCellsArray[i].innerHTML = jsonData.grid[i] + " " + i;
+    //     } else {
+    //       gridCellsArray[i].style.backgroundColor = "rgba(0, 0, 0, 0.5)";
+    //       gridCellsArray[i].innerHTML = "";
+    //     }
+    //     break;
+    // }
   }
 }
